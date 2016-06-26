@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="//purecss.io/css/layouts/side-menu.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="layout">
+  <a href="#menu" id="menuLink" class="menu-link">
+      <!-- Hamburger icon -->
+      <span></span>
+  </a>
+  <div id="menu">
+      <div class="pure-menu">
+          <a class="pure-menu-heading" href="http://nekowiztw.github.io/">NekowizTW</a>
+          <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a href="http://zh.nekowiz.wikia.com" class="pure-menu-link">黑貓wikia</a></li>
+              <li class="pure-menu-item"><a href="https://github.com/NekowizTW/eventTimeline" class="pure-menu-link">專案地址</a></li>
+          </ul>
+      </div>
+  </div>
+  <div id="main">
+    <div class="header">
+      <h1>AS倍率計算</h1>
+    </div>
+
+    <div class="content">
+      <div id="list" class="pure-form pure-form-stacked">初始化中...</div>
+    </div>
+
+    <div class="footer">
+      <div class="legal pure-g">
+          <div class="pure-u-1-2">
+              <p class="legal-license">
+                  本專案使用CC0對原始碼授權，工具部份維持原來授權方式授權，資料來源遵照wikia授權
+              </p>
+          </div>
+
+          <div class="pure-u-1-2">
+              <p class="legal-copyright">
+                  Project created by OtomeSound
+              </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="template" type="text/ractive">
+  <h2>基礎攻擊力</h2>
+  <div class="pure-g">
+    <input id="baseAtk" class="pure-input-1-2" on-change='newBaseAtk' on-enter='blur' placeholder='請輸入基礎攻擊力'>
+    <select id="modeAtk" class="pure-input-1-2" on-change='newModeAtk'>
+      {{#docs}}
+        <option value='{{id}}'>{{name}}（{{condition}}）</option>
+      {{/docs}}
+    </select>
+  </div>
+  <aside>
+    條件：{{docsFormat(modeAtk, 'condition')}}<br>
+    理想組隊：{{docsFormat(modeAtk, 'ideal')}}<br>
+    {{docsFormat(modeAtk, 'description')}}<br>
+  </aside>
+  <h2>倍率結果</h2>
+  <h4>{{powerFormat()}} <span style="float: right;">樣本數: {{dataNum}}</span></h4>
+  <h2>傷害</h2>
+  <input id="newDamage" class="pure-input-1" on-change='newDamage' on-enter='blur' placeholder='請輸入傷害量'>
+
+  <div class="pure-menu custom-restricted-width">
+    
+  </div>
+
+  <ul class='damage-list pure-menu-list'>
+    {{#each items:i}}
+      {{>item}}
+    {{/each}}
+  </ul>
+
+  <p>
+    在參與測試之前，請盡量使用最少單位來測試（理想是單打或是不要使用隊友增傷），大腿請選擇不同屬性不同種族來減少計算困難度。<br>
+    請根據AS判定是否要勾選條件觸發（勾選後條件觸發會和一般數據分離），顏色追加已經內建在選項內，請直接選擇。
+  </p>
+</script>
+<script src='http://cdn.ractivejs.org/latest/ractive.min.js'></script>
+<script src="//ractivejs.github.io/ractive-events-tap/ractive-events-tap.js"></script>
+<script src="//purecss.io/js/ui.js"></script>
+<script src="https://lodash.com/_js/lodash.js"></script>
+<script type="text/javascript" src="lib.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>
